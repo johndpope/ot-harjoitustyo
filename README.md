@@ -2,7 +2,7 @@
 
 ### Tehtävät
 
-## _Viikko 1_
+#### _Viikko 1_
 
 [gitlog.txt](https://github.com/Zentryn/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
