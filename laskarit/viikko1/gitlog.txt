@@ -1,0 +1,37 @@
+commit 01f1c3187e5bebe756fde8b2e68ff5bf0d54066d
+Author: Zentryn <zentryn@gmail.com>
+Date:   Sat Nov 3 00:21:00 2018 +0200
+
+    renamed file2 to file22
+
+ tiedostoja/file22 | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit dc8d986b2714a9db1fa928718c836515f8e54ee1
+Author: Zentryn <zentryn@gmail.com>
+Date:   Sat Nov 3 00:20:49 2018 +0200
+
+    removed file1
+
+ tiedostoja/file1 | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9c8c616352fb2d1fddfd559bbd4ab36b177afd20
+Author: Zentryn <zentryn@gmail.com>
+Date:   Sat Nov 3 00:20:41 2018 +0200
+
+    rename to file22
+
+ tiedostoja/file2 | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 35fa82f992bbf37ee7a4b14f47503c03da0955d9
+Author: Zentryn <zentryn@gmail.com>
+Date:   Sat Nov 3 00:16:24 2018 +0200
+
+    initial commit
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
