@@ -21,6 +21,7 @@ public class MaksukorttiTest {
     @Test
     public void oikeaSaldo() {
         assertEquals(kortti.saldo(), 10);
+        assertEquals(kortti.toString(), "saldo: 0.10");
     }
     
     @Test
@@ -43,9 +44,11 @@ public class MaksukorttiTest {
     public void saldoEiMuutuJosEiTarpeeksiRahaa() {
         boolean works1 = kortti.otaRahaa(11);
         assertEquals(kortti.saldo(), 10);
+        assertEquals(kortti.toString(), "saldo: 0.10");
         boolean works2 = kortti.otaRahaa(10);
         boolean works3 = kortti.otaRahaa(1);
         assertEquals(kortti.saldo(), 0);
+        assertEquals(kortti.toString(), "saldo: 0.0");
         
         assertFalse(works1);
         assertTrue(works2);
