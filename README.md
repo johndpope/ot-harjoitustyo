@@ -5,6 +5,8 @@ Harjoitustyössä rakennettava sovellus/peli.
 
 [Vaatimusmäärittely](https://github.com/Zentryn/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
+[Tuntikirjanpito](https://github.com/Zentryn/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
+
 ## Tehtävät
 
 ### _Viikko 1_
