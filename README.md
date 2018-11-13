@@ -1,4 +1,4 @@
-## Ohjelmistotekniikkaa harjoitustyö syksy 2018
+# Ohjelmistotekniikkaa harjoitustyö syksy 2018
 
 ## Roguelike
 Harjoitustyössä rakennettava sovellus/peli.
