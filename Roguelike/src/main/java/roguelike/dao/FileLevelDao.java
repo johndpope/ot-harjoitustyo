@@ -39,7 +39,7 @@ public class FileLevelDao implements LevelDao {
                 levelData[i] = initialLevelData.get(i);
             }
 
-            return new Level(level, levelData);
+            return new Level(levelData);
         } catch (Exception e) {
             System.out.println("Error while reading level \"" + level + "\": " + e.getMessage());
 
