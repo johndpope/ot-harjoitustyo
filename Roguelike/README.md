@@ -9,10 +9,13 @@ Roguelike on 2D vuoropohjainen luolastoseikkailupeli, jossa pelaaja liikkuu luol
 
 ## Komentorivitoiminnot
 
+### Testaus
+
 Testit suoritetaan komennolla
 ```
 mvn test
 ```
+
 
 
 Testikattavuusraportti luodaan komennolla
@@ -20,7 +23,7 @@ Testikattavuusraportti luodaan komennolla
 mvn jacoco:report
 ```
 
-
+### Suoritettavan jar -tiedoston generointi
 Suoritettavan jar -tiedoston sovelluksesta saa generoitua komennolla
 ```
 mvn package
