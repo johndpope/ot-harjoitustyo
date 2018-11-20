@@ -3,9 +3,7 @@
 ## Roguelike
 Harjoitustyössä rakennettava sovellus/peli.
 
-[Vaatimusmäärittely](https://github.com/Zentryn/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
-
-[Tuntikirjanpito](https://github.com/Zentryn/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
+[Sovelluksen kansio](https://github.com/Zentryn/ot-harjoitustyo/tree/master/Roguelike)
 
 ## Tehtävät
 
