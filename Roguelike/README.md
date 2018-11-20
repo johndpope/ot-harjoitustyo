@@ -22,6 +22,7 @@ Testikattavuusraportti luodaan komennolla
 ```
 mvn jacoco:report
 ```
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
 
 ### Suoritettavan jar -tiedoston generointi
 Suoritettavan jar -tiedoston sovelluksesta saa generoitua komennolla
