@@ -23,16 +23,21 @@
 	    <plugins>
 	        <plugin>
 	            <groupId>org.jacoco</groupId>
-	            <artifactId>jacoco-maven-plugin</artifactId>
-	            <version>0.8.0</version>
-	            <executions>
-	                <execution>
-	                    <id>default-prepare-agent</id>
-	                    <goals>
-	                        <goal>prepare-agent</goal>
-	                    </goals>
-	                </execution>
-	            </executions>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <configuration>
+                    <excludes>
+                        <exclude>roguelike/ui/**/*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
 	        </plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
