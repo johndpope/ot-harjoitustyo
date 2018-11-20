@@ -23,3 +23,4 @@ Suoritettavan jar -tiedoston sovelluksesta saa generoitua komennolla
 ```
 mvn package
 ```
+Komennon ajon jälkeen suoritettava jar -tiedosto löytyy target/ -kansion alta nimellä _Roguelike-1.0-SNAPSHOT.jar_
