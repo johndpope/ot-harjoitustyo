@@ -1,24 +1,32 @@
-# Ohjelmistotekniikkaa harjoitustyö syksy 2018
+# Roguelike
 
-## Roguelike
-Harjoitustyössä rakennettava sovellus/peli.
+Roguelike on 2D vuoropohjainen luolastoseikkailupeli, jossa pelaaja liikkuu luolastoissa. Luolastoissa tulee vastaan vihollisia joita vastaan voi taistella ja tavaroita joita voi kerätä jotka vaikuttavat pelaajan vahvuuteen. Pelin tarkoituksena on selvitä seuraaville tasoille ja voittaa näin peli pääsemällä viimeinen taso läpi.
 
-[Sovelluksen kansio](https://github.com/Zentryn/ot-harjoitustyo/tree/master/Roguelike)
+## Dokumentaatio
+[Vaatimusmäärittely](https://github.com/Zentryn/ot-harjoitustyo/blob/master/Roguelike/dokumentaatio/vaatimusmaarittely.md)
 
-## Tehtävät
+[Tuntikirjanpito](https://github.com/Zentryn/ot-harjoitustyo/blob/master/Roguelike/dokumentaatio/tuntikirjanpito.md)
 
-### _Viikko 1_
+## Komentorivitoiminnot
 
-[gitlog.txt](https://github.com/Zentryn/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+### Testaus
 
-[komentorivi.txt](https://github.com/Zentryn/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+Testit suoritetaan komennolla
+```
+mvn test
+```
 
-### _Viikko 2_
-[Testikattavuus](https://github.com/Zentryn/ot-harjoitustyo/blob/master/laskarit/viikko2/Testikattavuus.png)
 
-### _Viikko 3_
-[Tehtävä 1-2](https://github.com/Zentryn/ot-harjoitustyo/blob/master/laskarit/viikko3/Teht%C3%A4v%C3%A4%201-2.png)
 
-[Tehtävä 3](https://github.com/Zentryn/ot-harjoitustyo/blob/master/laskarit/viikko3/Teht%C3%A4v%C3%A4%203.png)
+Testikattavuusraportti luodaan komennolla
+```
+mvn jacoco:report
+```
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
 
-[Tehtävä 4](https://github.com/Zentryn/ot-harjoitustyo/blob/master/laskarit/viikko3/Teht%C3%A4v%C3%A4%204.png)
+### Suoritettavan jar -tiedoston generointi
+Suoritettavan jar -tiedoston sovelluksesta saa generoitua komennolla
+```
+mvn package
+```
+Komennon ajon jälkeen suoritettava jar -tiedosto löytyy target/ -kansion alta nimellä _Roguelike-1.0-SNAPSHOT.jar_
