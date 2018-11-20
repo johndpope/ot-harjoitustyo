@@ -1,5 +1,12 @@
-Roguelike/target
+target/
 /laskarit/viikko2/Maksukortti/nbproject/private/
 /laskarit/viikko2/Maksukortti/build/
 /laskarit/viikko2/Unicafe/target/
 /laskarit/viikko2/Unicafe/nbproject/
+
+bin/
+.vsode/
+.settings/
+.vscode/
+.classpath
+.project
