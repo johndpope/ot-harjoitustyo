@@ -10,3 +10,4 @@
 | 27.11 | 7h | Sovelluksen koodaus |
 | 27.11 | 0.5h | Testien kirjoittaminen |
 | 27.11 | 0.5h | Luokkakaavion luonti ja GitHub -repositorion järjestäminen |
+| Yht. | 16h | |
