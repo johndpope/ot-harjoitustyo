@@ -8,12 +8,12 @@ public class LevelManager {
     private Level currentLevel;
     private int currentLevelNumber;
     private FileLevelDao fileLevelDao;
-    private HashMap<Integer, Level> levels;
+    private HashMap<Integer, Level> levelMap;
 
     public LevelManager() {
         this.currentLevelNumber = 1;
         this.fileLevelDao = new FileLevelDao();
-        this.levels = new HashMap<>();
+        this.levelMap = new HashMap<>();
 
         this.initLevels();
     }
@@ -30,21 +30,21 @@ public class LevelManager {
      * @param level The level that should be changed to
      */
     public void changeLevel(int level) {
-        if (!this.levels.keySet().contains(level)) {
+        if (!this.levelMap.keySet().contains(level)) {
             return;
         }
 
         this.currentLevelNumber = level;
-        this.currentLevel = this.levels.get(level);
+        this.currentLevel = this.levelMap.get(level);
     }
 
     /**
      * Loads and stores all levels of the game
      */
     private void initLevels() {
-        this.levels.put(1, fileLevelDao.loadLevel(1));
+        this.levelMap.put(1, fileLevelDao.loadLevel(1));
 
-        this.currentLevel = this.levels.get(this.currentLevelNumber);
+        this.currentLevel = this.levelMap.get(this.currentLevelNumber);
     }
 
     /**
