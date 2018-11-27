@@ -43,29 +43,20 @@ public class LevelManager {
      */
     private void initLevels() {
         this.levels.put(1, fileLevelDao.loadLevel(1));
-        this.levels.put(2, fileLevelDao.loadLevel(2));
 
         this.currentLevel = this.levels.get(this.currentLevelNumber);
     }
 
     /**
      * Moves the player in the game world
-     * @param xDiff The amount the player should be moved in the x position
      * @param yDiff The amount the player should be moved in the y position
+     * @param xDiff The amount the player should be moved in the x position
      */
-    public void movePlayer(int xDiff, int yDiff) {
+    public boolean movePlayer(int yDiff, int xDiff) {
         if (this.currentLevel == null) {
-            return;
+            return false;
         }
 
-        // Get player coordinates
-        int playerY = this.currentLevel.player.y;
-        int playerX = this.currentLevel.player.x;
-
-        if (this.currentLevel.getTile(playerY + yDiff, playerX + xDiff) == '#') {
-            return;
-        }
-        
-        this.currentLevel.player.move(yDiff, xDiff);
+        return this.currentLevel.player.move(yDiff, xDiff);
     }
 }
