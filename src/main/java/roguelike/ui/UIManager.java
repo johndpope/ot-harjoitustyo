@@ -21,11 +21,11 @@ public class UIManager {
     private Text[] levelTextData;
 
     // Size of characters on screen
-    final int CHAR_HEIGHT = 17;
-    final int CHAR_WIDTH = 11;
+    final int charHeight = 17;
+    final int charWidth = 11;
 
     // Extra padding in the window
-    final int WINDOW_PADDING = 10;
+    final int windowPadding = 10;
 
     /**
      * Initializes the UI Manager
@@ -51,18 +51,7 @@ public class UIManager {
             return;
         }
 
-        // Store the level in a Text object array so it can easily be modified
-        this.levelTextData = new Text[level.levelData.length];
-
-        // Setup text objects with fonts and colors
-        for (int i = 0; i < level.levelData.length; i++) {
-            Text t = new Text();
-            t.setText(new String(level.levelData[i]));
-            t.setFill(Color.WHITE);
-            t.setY(i * CHAR_HEIGHT);
-            t.setFont(Font.font("consolas", FontWeight.BOLD, FontPosture.REGULAR, 20));
-            this.levelTextData[i] = t;
-        }
+        this.createTextDataForLevel(level);
 
         // Create containers for text
         GridPane grid = new GridPane();
@@ -71,8 +60,8 @@ public class UIManager {
 
         // Create scene and set its size to fit the level
         Scene scene = new Scene(
-            grid, level.levelData[0].length * CHAR_WIDTH - WINDOW_PADDING,
-            level.levelData.length * CHAR_HEIGHT - WINDOW_PADDING
+            grid, level.levelData[0].length * charWidth - windowPadding,
+            level.levelData.length * charHeight - windowPadding
         );
 
         scene.setFill(Color.BLACK);
@@ -85,11 +74,32 @@ public class UIManager {
     }
 
     /**
+     * Creates text data for a level that can be then outputted to the screen
+     * @param level The number of the level that the data should be created for
+     */
+    private void createTextDataForLevel(Level level) {
+        // Store the level in a Text object array so it can easily be modified
+        this.levelTextData = new Text[level.levelData.length];
+
+        // Setup text objects with fonts and colors
+        for (int i = 0; i < level.levelData.length; i++) {
+            Text t = new Text();
+            t.setText(new String(level.levelData[i]));
+            t.setFill(Color.WHITE);
+            t.setY(i * charHeight);
+            t.setFont(Font.font("consolas", FontWeight.BOLD, FontPosture.REGULAR, 20));
+            this.levelTextData[i] = t;
+        }
+    }
+
+    /**
      * Updates the text in the current scene
      */
     private void updateTextData() {
         Level level = this.levelManager.getCurrentLevel();
-        if (level == null) return;
+        if (level == null) {
+            return;
+        }
 
         for (int i = 0; i < level.levelData.length; i++) {
             this.levelTextData[i].setText(new String(level.levelData[i]));
@@ -107,24 +117,32 @@ public class UIManager {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent e) {
-                if (e.getCode() == KeyCode.LEFT) {
-                    self.levelManager.movePlayer(-1, 0);
-                } else if (e.getCode() == KeyCode.RIGHT) {
-                    self.levelManager.movePlayer(1, 0);
-                } else if (e.getCode() == KeyCode.UP) {
-                    self.levelManager.movePlayer(0, -1);
-                } else if (e.getCode() == KeyCode.DOWN) {
-                    self.levelManager.movePlayer(0, 1);
-                } else if (e.getCode() == KeyCode.DIGIT1) {
-                    self.levelManager.changeLevel(1);
-                    self.showCurrentLevel();
-                } else if (e.getCode() == KeyCode.DIGIT2) {
-                    self.levelManager.changeLevel(2);
-                    self.showCurrentLevel();
-                }
-
-                self.updateTextData();
+                self.onKeyPress(e.getCode());
             }
         });
+    }
+
+    /**
+     * Handles a key press
+     * @param keyCode Code of the key that was pressed
+     */
+    private void onKeyPress(KeyCode keyCode) {
+        if (keyCode == KeyCode.LEFT) {
+            this.levelManager.movePlayer(-1, 0);
+        } else if (keyCode == KeyCode.RIGHT) {
+            this.levelManager.movePlayer(1, 0);
+        } else if (keyCode == KeyCode.UP) {
+            this.levelManager.movePlayer(0, -1);
+        } else if (keyCode == KeyCode.DOWN) {
+            this.levelManager.movePlayer(0, 1);
+        } else if (keyCode == KeyCode.DIGIT1) {
+            this.levelManager.changeLevel(1);
+            this.showCurrentLevel();
+        } else if (keyCode == KeyCode.DIGIT2) {
+            this.levelManager.changeLevel(2);
+            this.showCurrentLevel();
+        }
+
+        this.updateTextData();
     }
 }

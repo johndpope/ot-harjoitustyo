@@ -30,7 +30,9 @@ public class LevelManager {
      * @param level The level that should be changed to
      */
     public void changeLevel(int level) {
-        if (!this.levels.keySet().contains(level)) return;
+        if (!this.levels.keySet().contains(level)) {
+            return;
+        }
 
         this.currentLevelNumber = level;
         this.currentLevel = this.levels.get(level);
@@ -52,8 +54,13 @@ public class LevelManager {
      * @param yDiff The amount the player should be moved in the y position
      */
     public void movePlayer(int xDiff, int yDiff) {
-        if (this.currentLevel == null) return;
-        if (this.currentLevel.levelData[this.currentLevel.playerY + yDiff][this.currentLevel.playerX + xDiff] == '#') return;
+        if (this.currentLevel == null) {
+            return;
+        }
+        
+        if (this.currentLevel.levelData[this.currentLevel.playerY + yDiff][this.currentLevel.playerX + xDiff] == '#') {
+            return;
+        }
 
         this.currentLevel.levelData[this.currentLevel.playerY + yDiff][this.currentLevel.playerX + xDiff] = '@';
         this.currentLevel.levelData[this.currentLevel.playerY][this.currentLevel.playerX] = '.';
