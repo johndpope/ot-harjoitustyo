@@ -83,21 +83,45 @@ public class Level {
             return;
         }
 
-        if (this.player.y == u.y && this.player.x == u.x) {
-            Logger.log("Game Over. Press any key to continue...");
-            this.player = null;
+        if (this.player != null && this.player.y == u.y && this.player.x == u.x) {
+            killPlayer();
         } else {
-            int idx = 1;
+            int idx = 0;
             for (Zombie z : this.zombies) {
                 if (z.y == u.y && z.x == u.x) {
-                    Logger.log("Player has " + this.player.health + " health left...");
-                    this.zombies.remove(idx - 1);
-                    this.setTile(u.y, u.x, '.');
+                    killZombie(idx, z);
                     break;
                 }
-
+                
                 idx++;
             }
+        }
+    }
+
+    /**
+     * Kills and removes the player from the level
+     */
+    private void killPlayer() {
+        if (this.player != null) {
+            Logger.log("Game Over. Press any key to continue...");
+            this.setTile(this.player.y, this.player.x, '.');
+            this.player = null;
+        }
+    }
+
+    /**
+     * Kills and removes a zombie from the level
+     * @param idx The index of the zombie
+     * @param z The Zombie that should be removed
+     */
+    private void killZombie(int idx, Zombie z) {
+        if (z != null) {
+            if (this.player != null) {
+                Logger.log("Player has " + this.player.health + " health left...");
+            }
+            
+            this.setTile(z.y, z.x, '.');
+            this.zombies.remove(idx);
         }
     }
 
