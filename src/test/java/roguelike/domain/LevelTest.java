@@ -2,6 +2,7 @@ package roguelike.domain;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class LevelTest {
     private char[][] emptyMap = {
@@ -23,27 +24,28 @@ public class LevelTest {
     @Test
     public void setsPlayerCoordinatesIfPlayerIsPresent() {
         Level level = new Level(this.playerMap);
-        assertEquals(level.playerX, 1);
-        assertEquals(level.playerY, 2);
+        assertNotEquals(level.player, null);
+        assertEquals(level.player.x, 1);
+        assertEquals(level.player.y, 2);
     }
 
     @Test
-    public void playerCoordinatesAreNotSetIfPlayerIsMissing() {
+    public void playerIsNotCreatedIfPlayerIsMissing() {
         Level level = new Level(this.emptyMap);
-        assertEquals(level.playerX, -1);
-        assertEquals(level.playerY, -1);
+        assertEquals(level.player, null);
     }
 
     @Test
     public void resetLevelResetsLevelToInitialState() {
         Level level = new Level(this.playerMap);
-        level.levelData[0][0] = '.';
-        level.levelData[1][2] = '.';
-        level.levelData[3][2] = '@';
+        level.setTile(0, 0, '.');
+        level.setTile(1, 2, '.');
+        level.setTile(3, 2, '@');
         level.resetLevel();
 
-        assertEquals(level.playerX, 1);
-        assertEquals(level.playerY, 2);
-        assertEquals(level.levelData[0][0], '#');
+        assertNotEquals(level.player, null);
+        assertEquals(level.player.x, 1);
+        assertEquals(level.player.y, 2);
+        assertEquals(level.getTile(0, 0), '#');
     }
 }

@@ -60,8 +60,8 @@ public class UIManager {
 
         // Create scene and set its size to fit the level
         Scene scene = new Scene(
-            grid, level.levelData[0].length * charWidth - windowPadding,
-            level.levelData.length * charHeight - windowPadding
+            grid, level.getWidth() * charWidth - windowPadding,
+            level.getHeight() * charHeight - windowPadding
         );
 
         scene.setFill(Color.BLACK);
@@ -79,12 +79,12 @@ public class UIManager {
      */
     private void createTextDataForLevel(Level level) {
         // Store the level in a Text object array so it can easily be modified
-        this.levelTextData = new Text[level.levelData.length];
+        this.levelTextData = new Text[level.getHeight()];
 
         // Setup text objects with fonts and colors
-        for (int i = 0; i < level.levelData.length; i++) {
+        for (int i = 0; i < level.getHeight(); i++) {
             Text t = new Text();
-            t.setText(new String(level.levelData[i]));
+            t.setText(new String(level.getRow(i)));
             t.setFill(Color.WHITE);
             t.setY(i * charHeight);
             t.setFont(Font.font("consolas", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -101,8 +101,8 @@ public class UIManager {
             return;
         }
 
-        for (int i = 0; i < level.levelData.length; i++) {
-            this.levelTextData[i].setText(new String(level.levelData[i]));
+        for (int i = 0; i < level.getHeight(); i++) {
+            this.levelTextData[i].setText(new String(level.getRow(i)));
         }
     }
 
