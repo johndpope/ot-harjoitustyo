@@ -32,3 +32,13 @@ Suoritettavan jar -tiedoston sovelluksesta saa generoitua komennolla
 mvn package
 ```
 Komennon ajon jälkeen suoritettava jar -tiedosto löytyy target/ -kansion alta nimellä _Roguelike-1.0-SNAPSHOT.jar_
+
+### Checkstyle
+
+Tiedostoon [checkstyle.xml](https://github.com/Zentryn/ot-harjoitustyo/blob/master/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla
+
+```
+ mvn jxr:jxr checkstyle:checkstyle
+```
+
+Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
