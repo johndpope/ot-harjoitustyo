@@ -8,6 +8,10 @@ Sovellus on vuoropohjainen 2D videopeli, missä pelaaja liikkuu luolistoissa (du
 
 - Pelaaja (käyttäjä) liikkuu pelimaailmassa nuolinäppäimillä
 - Pelissä on vihollisia joita vastaan pelaajan täytyy taistella
+  - Viholliset liikkuvat joko satunnaisesti, tai ne yrittävät seurata ja hyökätä pelaajan kimppuun.
+  - Pelissä on myös hieman edistyneempi polkujenetsimisalgoritmi, joka mahdollistaa viholliset jotka löytävät pelaajan pitkänkin matkan päästä ja jopa seinien takaa.
+- Peliin sisältyy ns. "toimintoloki", joka kertoo ruudulle viesteinä mitä pelissä tapahtuu
+  - Esimerkiksi jos pelaaja taistelee vihollista vastaa, tulee tähän lokiin tietoa taistelusta tai jos pelaaja löytää esineen, kertoo loki siitä
 - Pelikentistä löytyy erilaisia esineitä ja tavaroita, joita pelaaja voi kerätä. Tähän sisältyy mm:
   - Kultaa, jota pelaaja voi käyttää kaupassa ostaakseen parempaa tavaraa
   - Aseita, jotka antavat pelaajalle enemmän vahvuutta vihollisia vastaan
