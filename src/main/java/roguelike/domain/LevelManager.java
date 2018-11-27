@@ -57,14 +57,15 @@ public class LevelManager {
         if (this.currentLevel == null) {
             return;
         }
-        
-        if (this.currentLevel.levelData[this.currentLevel.playerY + yDiff][this.currentLevel.playerX + xDiff] == '#') {
+
+        // Get player coordinates
+        int playerY = this.currentLevel.player.y;
+        int playerX = this.currentLevel.player.x;
+
+        if (this.currentLevel.getTile(playerY + yDiff, playerX + xDiff) == '#') {
             return;
         }
-
-        this.currentLevel.levelData[this.currentLevel.playerY + yDiff][this.currentLevel.playerX + xDiff] = '@';
-        this.currentLevel.levelData[this.currentLevel.playerY][this.currentLevel.playerX] = '.';
-        this.currentLevel.playerX += xDiff;
-        this.currentLevel.playerY += yDiff;
+        
+        this.currentLevel.player.move(yDiff, xDiff);
     }
 }
