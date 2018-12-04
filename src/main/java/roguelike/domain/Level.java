@@ -84,6 +84,10 @@ public class Level {
      * @param detonator The unit that detonated this bomb
      */
     public void detonateBomb(int y, int x, Bomb b, Unit detonator) {
+        if (detonator == null) {
+            return;
+        }
+
         Logger.log(detonator.name + " detonated a bomb!");
 
         for (int i = y - b.blastRadius; i <= y + b.blastRadius; i++) {
@@ -293,7 +297,7 @@ public class Level {
      * @return Unit in the tile if it exists, null otherwise
      */
     public Unit getUnitAtTile(int y, int x) {
-        if (this.player.y == y && this.player.x == x) {
+        if (this.player != null && this.player.y == y && this.player.x == x) {
             return this.player;
         }
 
