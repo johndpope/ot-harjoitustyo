@@ -10,4 +10,7 @@
 | 27.11 | 7h | Sovelluksen koodaus |
 | 27.11 | 0.5h | Testien kirjoittaminen |
 | 27.11 | 0.5h | Luokkakaavion luonti ja GitHub -repositorion järjestäminen |
-| Yht. | 16h | |
+| 04.12 | 5h | Projektin koodaus |
+| 04.12 | 1h | Testien kirjoittaminen |
+| 04.12 | 0.5h | Sekvenssikaavio ja Viikon 5 release |
+| Yht. | 22.5h | |
