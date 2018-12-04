@@ -250,7 +250,7 @@ public class UIManager {
      * @param xDiff Amount the player should be moved in the x direction
      */
     private void movePlayer(int yDiff, int xDiff) {
-       this.checkForGameEnd();
+        this.checkForGameEnd();
 
         if (this.levelManager.movePlayer(yDiff, xDiff)) {
             this.delayFunc.play();

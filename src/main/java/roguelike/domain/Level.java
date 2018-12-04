@@ -89,8 +89,7 @@ public class Level {
         for (int i = y - b.blastRadius; i <= y + b.blastRadius; i++) {
             for (int j = x - b.blastRadius; j <= x + b.blastRadius; j++) {
                 if ((i == y && j == x) || isOutOfBounds(i, j) ||
-                    Util.totalDistanceBetweenCoordinates(y, x, i, j) > b.blastRadius)
-                {
+                    Util.totalDistanceBetweenCoordinates(y, x, i, j) > b.blastRadius) {
                     continue;
                 }
 

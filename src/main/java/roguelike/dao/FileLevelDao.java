@@ -35,7 +35,7 @@ public class FileLevelDao implements LevelDao {
      */
     private Level readLevelFromFile(int level) throws Exception {
         // Load level file from github repo
-        File f = new File (appRootDir + "/" + "level" + level + ".txt");
+        File f = new File(appRootDir + "/" + "level" + level + ".txt");
         f.deleteOnExit();
         URL url = new URL("https://raw.githubusercontent.com/Zentryn/ot-harjoitustyo/master/savedata/levels/level" + level + ".txt");
         FileUtils.copyURLToFile(url, f);
