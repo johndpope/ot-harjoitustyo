@@ -2,6 +2,9 @@
 
 Roguelike on 2D vuoropohjainen luolastoseikkailupeli, jossa pelaaja liikkuu luolastoissa. Luolastoissa tulee vastaan vihollisia joita vastaan voi taistella ja tavaroita joita voi kerätä jotka vaikuttavat pelaajan vahvuuteen. Pelin tarkoituksena on selvitä seuraaville tasoille ja voittaa näin peli pääsemällä viimeinen taso läpi.
 
+## Releaset
+[Viikko 5](https://github.com/Zentryn/ot-harjoitustyo/releases/tag/viikko5)
+
 ## Dokumentaatio
 [Vaatimusmäärittely](https://github.com/Zentryn/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
