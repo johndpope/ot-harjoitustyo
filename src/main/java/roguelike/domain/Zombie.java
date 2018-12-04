@@ -21,9 +21,7 @@ public class Zombie extends Unit {
      * Calculates a move for the zombie and then moves it
      */
     public void calculateMove() {
-        // Next to player
-        if (Util.totalDistanceBetweenCoordinates(this.level.player.y, this.level.player.x, this.y, this.x) == 1) {
-            this.attack(this.level.player);
+        if (this.calculateAttack()) {
             return;
         }
 
@@ -40,6 +38,23 @@ public class Zombie extends Unit {
                 this.idleCounter++;
             }
         }        
+    }
+
+    /**
+     * Calculates whether or not the zombie should attack the player
+     * @return True if the zombie attacked the player, false otherwise
+     */
+    private boolean calculateAttack() {
+        int distToPlayer = Util.totalDistanceBetweenCoordinates(this.level.player.y, this.level.player.x, this.y, this.x);
+        if (this.bombs.size() > 0 && distToPlayer <= this.bombs.get(0).blastRadius) {
+            this.useBomb();
+            return true;
+        } else if (distToPlayer == 1) {
+            this.attack(this.level.player);
+            return true;
+        }
+
+        return false;
     }
 
     /**
