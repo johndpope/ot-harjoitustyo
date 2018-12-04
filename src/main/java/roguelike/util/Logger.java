@@ -17,7 +17,7 @@ public final class Logger {
         }
 
         if (messages.size() < nrLines) {
-            messages.add(message);
+            messages.add(0, message);
         } else {
             // Shift all messages
             for (int i = messages.size() - 1; i >= 1; i--) {
@@ -34,5 +34,9 @@ public final class Logger {
 
     public static void setOnLog(Runnable func) {
         onLogFunc = func;
+    }
+
+    public static void clearLog() {
+        messages.clear();
     }
 }
