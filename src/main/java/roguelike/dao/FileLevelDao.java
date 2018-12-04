@@ -3,6 +3,9 @@ package roguelike.dao;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.net.URL;
+
+import org.apache.commons.io.FileUtils;
 
 import roguelike.domain.Level;
 
@@ -31,8 +34,12 @@ public class FileLevelDao implements LevelDao {
      * @throws Exception If level file was not found
      */
     private Level readLevelFromFile(int level) throws Exception {
-        // Load level file from savedata folder
-        Scanner reader = new Scanner(new File(this.appRootDir + "/savedata/levels/level" + level + ".txt"));
+        // Load level file from github repo
+        File f = new File (appRootDir + "/" + "level" + level + ".txt");
+        f.deleteOnExit();
+        URL url = new URL("https://raw.githubusercontent.com/Zentryn/ot-harjoitustyo/master/savedata/levels/level" + level + ".txt");
+        FileUtils.copyURLToFile(url, f);
+        Scanner reader = new Scanner(f);
 
         ArrayList<char[]> initialLevelData = new ArrayList<>();
         while (reader.hasNextLine()) {
