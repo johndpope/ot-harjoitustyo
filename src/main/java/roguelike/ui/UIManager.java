@@ -32,8 +32,11 @@ public class UIManager {
     final int charHeight = 17;
     final int charWidth = 11;
     final int nrLogLines = 5;
+    final int nrStatsLines = 2;
     final int delayFuncMS = 50;
     final int bottomTextSpace = charHeight * (nrLogLines + 1);
+    final int topTextSpace = charHeight * (nrStatsLines + 1);
+    final int levelDataStartY = nrStatsLines + 1;
 
     // Extra padding in the window
     final int windowPadding = 10;
@@ -47,10 +50,7 @@ public class UIManager {
         UIManager self = this;
         this.levelManager = new LevelManager();
         Logger.nrLines = this.nrLogLines;
-        Logger.setOnLog(() -> {
-            self.createLogTextData();
-            self.updateTextData();
-        });
+        this.setupCustomEventListeners();
 
         this.window.setTitle("Roguelike");
         this.window.setResizable(false);
@@ -61,12 +61,43 @@ public class UIManager {
             ae -> {
                 Level l = self.levelManager.getCurrentLevel();
 
-                if (l != null) {
+                if (l != null && l.player != null) {
                     l.moveEnemies();
                     self.updateTextData();
                 }
             }
         ));
+    }
+
+    /**
+     * Sets up event listeners for different parts of the app
+     */
+    private void setupCustomEventListeners() {
+        Logger.setOnLog(() -> {
+            this.createLogTextData();
+            this.updateTextData();
+        });
+
+        this.setupStatsUpdateEventListener();
+
+        this.levelManager.onLevelChange(() -> {
+            Logger.clearLog();
+            this.showCurrentLevel();
+
+            this.setupStatsUpdateEventListener();
+        });
+    }
+
+    /**
+     * Sets up the event listener for stats updates
+     */
+    private void setupStatsUpdateEventListener() {
+        Level l = this.levelManager.getCurrentLevel();
+        if (l != null && l.player != null) {
+            l.player.setOnStatsUpdate(() -> {
+                this.updateStatsTextData();
+            });
+        }
     }
     
     /**
@@ -76,7 +107,7 @@ public class UIManager {
         this.window.hide();
 
         Level level = this.levelManager.getCurrentLevel();
-        if (level == null) {
+        if (level == null || level.player == null) {
             this.window.show();
             return;
         }
@@ -91,7 +122,7 @@ public class UIManager {
         // Create scene and set its size to fit the level
         Scene scene = new Scene(
             grid, level.getWidth() * charWidth - windowPadding,
-            level.getHeight() * charHeight - windowPadding + bottomTextSpace
+            level.getHeight() * charHeight - windowPadding + bottomTextSpace + topTextSpace
         );
 
         scene.setFill(Color.BLACK);
@@ -109,18 +140,21 @@ public class UIManager {
      */
     private void createTextDataForLevel(Level level) {
         // Store the level in a Text object array so it can easily be modified
-        this.levelTextData = new Text[level.getHeight() + this.nrLogLines + 1];
+        this.levelTextData = new Text[level.getHeight() + this.nrLogLines + 1 + this.nrStatsLines + 1];
 
         // Setup text objects with fonts and colors
         for (int i = 0; i < this.levelTextData.length; i++) {
             Text t = new Text();
 
-            if (i < level.getHeight()) {
-                t.setText(new String(level.getRow(i)));
+            if (i <= this.nrStatsLines) {
+                t.setText("");
+                t.setFill(Color.LIGHTGRAY);
+            } else if (i < level.getHeight() + levelDataStartY) {
+                t.setText(new String(level.getRow(i - (levelDataStartY))));
                 t.setFill(Color.WHITE);
             } else {
                 t.setText("");
-                t.setFill(Color.LIGHTCORAL);
+                t.setFill(Color.LIGHTGRAY);
             }
 
             t.setY(i * charHeight);
@@ -130,6 +164,7 @@ public class UIManager {
         }
 
         this.createLogTextData();
+        this.updateStatsTextData();
     }
 
     /**
@@ -145,6 +180,20 @@ public class UIManager {
         }
     }
 
+    private void updateStatsTextData() {
+        Level level = this.levelManager.getCurrentLevel();
+        if (level == null || level.player == null) {
+            return;
+        }
+
+        String hp = Integer.toString(level.player.health);
+        String dmg = Integer.toString(level.player.damage);
+        String armor = Integer.toString(level.player.armor);
+        String bombs = Integer.toString(level.player.bombs.size());
+
+        this.levelTextData[1].setText("Health: " + hp + " | Damage: " + dmg + " | Armor: " + armor + " | Bombs: " + bombs);
+    }
+
     /**
      * Updates the text in the current scene
      */
@@ -155,7 +204,7 @@ public class UIManager {
         }
 
         for (int i = 0; i < level.getHeight(); i++) {
-            this.levelTextData[i].setText(new String(level.getRow(i)));
+            this.levelTextData[i + levelDataStartY].setText(new String(level.getRow(i)));
         }
     }
 
@@ -188,9 +237,8 @@ public class UIManager {
             movePlayer(-1, 0);
         } else if (keyCode == KeyCode.DOWN) {
             movePlayer(1, 0);
-        } else if (keyCode == KeyCode.DIGIT1) {
-            this.levelManager.changeLevel(1);
-            this.showCurrentLevel();
+        } else if (keyCode == KeyCode.SPACE) {
+            useBomb();
         }
 
         this.updateTextData();
@@ -202,13 +250,31 @@ public class UIManager {
      * @param xDiff Amount the player should be moved in the x direction
      */
     private void movePlayer(int yDiff, int xDiff) {
-        if (this.levelManager.getCurrentLevel().player == null) {
-            this.window.close();
-            return;
-        }
+       this.checkForGameEnd();
 
         if (this.levelManager.movePlayer(yDiff, xDiff)) {
             this.delayFunc.play();
+        }
+    }
+
+    /**
+     * Uses a bomb on the player
+     */
+    private void useBomb() {
+        this.checkForGameEnd();
+
+        if (this.levelManager.useBomb()) {
+            this.delayFunc.play();
+        }
+    }
+
+    /**
+     * Checks if the game has ended and closes the window if it has
+     */
+    private void checkForGameEnd() {
+        if (this.levelManager.getCurrentLevel().player == null) {
+            this.window.close();
+            return;
         }
     }
 }
