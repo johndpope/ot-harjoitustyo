@@ -13,6 +13,7 @@ public class Level {
     private char[][] levelData;
     public Player player;
     public ArrayList<Zombie> zombies;
+    private Runnable onLevelExitFunc;
 
     private char[][] initialLevelData;
 
@@ -25,6 +26,7 @@ public class Level {
     public Level(char[][] levelData) {
         this.levelData = levelData;
         this.zombies = new ArrayList<>();
+        this.onLevelExitFunc = null;
 
         // Copy level to a backup object for level resetting
         this.initialLevelData = new char[levelData.length][levelData[0].length];
@@ -75,6 +77,51 @@ public class Level {
     }
 
     /**
+     * Detonates a bomb
+     * @param y Y coordinate of the bomb
+     * @param x X coordinate of the bomb
+     * @param b The bomb that should be detonated
+     * @param detonator The unit that detonated this bomb
+     */
+    public void detonateBomb(int y, int x, Bomb b, Unit detonator) {
+        Logger.log(detonator.name + " detonated a bomb!");
+
+        for (int i = y - b.blastRadius; i <= y + b.blastRadius; i++) {
+            for (int j = x - b.blastRadius; j <= x + b.blastRadius; j++) {
+                if ((i == y && j == x) || isOutOfBounds(i, j) ||
+                    Util.totalDistanceBetweenCoordinates(y, x, i, j) > b.blastRadius)
+                {
+                    continue;
+                }
+
+                handleBombTile(i, j, b, detonator);
+            }
+        }
+    }
+
+    /**
+     * Handles a tile that is being detonated by a bomb
+     * @param y Y coordinate of the tile
+     * @param x X coordinate of the tile
+     * @param b The bomb that is being detonated
+     * @param detonator The unit that detonated the bomb
+     */
+    private void handleBombTile(int y, int x, Bomb b, Unit detonator) {
+        char tile = this.levelData[y][x];
+
+        if (tile == '#' || tile == 'B') {
+            if (y == 0 || x == 0 || y == getHeight() - 1 || x == getWidth() - 1) {
+                setTile(y, x, ' ');
+            } else {
+                setTile(y, x, '.');
+            }
+        } else if (tile == 'Z' || tile == '@') {
+            Unit u = findUnitAtLocation(y, x);
+            u.takeHit(b.blastDamage, u.name + " was hit by a bomb for " + b.blastDamage + " damage!");
+        }
+    }
+
+    /**
      * Removes a unit from the level
      * @param u The unit that should be removed
      */
@@ -99,11 +146,31 @@ public class Level {
     }
 
     /**
+     * Finds a unit at a designated location
+     * @param y Y coordinate of the location
+     * @param x X coordinate of the location
+     * @return Unit at the location or null if there was none
+     */
+    public Unit findUnitAtLocation(int y, int x) {
+        if (this.player.y == y && this.player.x == x) {
+            return this.player;
+        }
+
+        for (Zombie z : this.zombies) {
+            if (z.y == y && z.x == x) {
+                return z;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Kills and removes the player from the level
      */
     private void killPlayer() {
         if (this.player != null) {
-            Logger.log("Game Over. Press any key to continue...");
+            Logger.log("Game Over. Press an arrow key to exit...");
             this.setTile(this.player.y, this.player.x, '.');
             this.player = null;
         }
@@ -217,7 +284,7 @@ public class Level {
         }
 
         char tile = getTile(y, x);
-        return (!(tile == ' ' || tile == '#' || tile == '@' || tile == 'Z'));
+        return (!(tile == ' ' || tile == '#' || tile == '@' || tile == 'Z' || tile == 'O'));
     }
 
     /**
@@ -241,6 +308,33 @@ public class Level {
     }
 
     /**
+     * Checks whether a tile is the exit to the level
+     * @param y Y coordinate of the tile
+     * @param x X coordinate of the tile
+     * @return True if the tile is the exit, false otherwise
+     */
+    public boolean isExitAtTile(int y, int x) {
+        return this.getTile(y, x) == 'O';
+    }
+
+    /**
+     * Exits this level
+     */
+    public void exitLevel() {
+        if (this.onLevelExitFunc != null) {
+            this.onLevelExitFunc.run();
+        }
+    }
+
+    /**
+     * Sets an event listener for when this level is exited
+     * @param cb Callback function to be called when this event fires
+     */
+    public void onLevelExit(Runnable cb) {
+        this.onLevelExitFunc = cb;
+    }
+
+    /**
      * Checks whether a tile is valid to be used when calculating a path
      * @param y Y coordinate of the tile
      * @param x X coordinate of the tile
@@ -252,7 +346,7 @@ public class Level {
         }
 
         char tile = getTile(y, x);
-        return (!(tile == ' ' || tile == '#'));
+        return (!(tile == ' ' || tile == '#' || tile == 'O'));
     }
 
     /**
