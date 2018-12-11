@@ -56,6 +56,8 @@ public class LevelManager {
     private void initLevels() {
         this.levelMap.put(1, fileLevelDao.loadLevel(1));
         this.levelMap.get(1).onLevelExit(() -> {
+            this.levelMap.get(2).player.setArmor(this.levelMap.get(1).player.armor);
+            this.levelMap.get(2).player.setWeapon(this.levelMap.get(1).player.weapon);
             this.changeLevel(2);
             if (this.onLevelChangeFunc != null) {
                 this.onLevelChangeFunc.run();
