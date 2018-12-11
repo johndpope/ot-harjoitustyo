@@ -47,3 +47,12 @@ Tiedostoon [checkstyle.xml](https://github.com/Zentryn/ot-harjoitustyo/blob/mast
 ```
 
 Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
+
+### JavaDoc
+JavaDocin sovelluksesta saa luotua komennolla
+
+```
+ mvn javadoc:javadoc
+```
+
+Generoitu JavaDoc -dokumentaatio löytyy tämän jälkeen tiedostosta _target/site/apidocs/index.html_
