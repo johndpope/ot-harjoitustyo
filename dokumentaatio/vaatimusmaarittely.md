@@ -15,4 +15,5 @@ Sovellus on vuoropohjainen 2D videopeli, missä pelaaja liikkuu luolistoissa (du
 - Pelikentistä löytyy erilaisia esineitä ja tavaroita, joita pelaaja voi kerätä. Tähän sisältyy mm:
   - Aseita, jotka antavat pelaajalle enemmän vahvuutta vihollisia vastaan
   - Tavaroita, jotka antavat pelaajalle lisää suojaa vihollisten hyökkäyksiltä
+- Nämä esineet eivät kuitenkaan ole pelkästään pelaajalle, vaan myöskin viholliset voivat kerätä esineitä, jotka muuttavat niiden voimia.
 - Pelin päätarkoituksena on selvitä seuraaville tasoille ja lopulta voittaa peli pääsemällä viimeinen taso läpi
