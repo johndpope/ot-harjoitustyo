@@ -14,6 +14,8 @@ Roguelike on 2D vuoropohjainen luolastoseikkailupeli, jossa pelaaja liikkuu luol
 
 [Arkkitehtuurikuvaus](https://github.com/Zentryn/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
+[Käyttöohje](https://github.com/Zentryn/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
 ## Komentorivitoiminnot
 
 ### Testaus
