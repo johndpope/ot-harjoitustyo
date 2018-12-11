@@ -92,18 +92,18 @@ public class Unit {
     private void createArmor() {
         String armorName = "";
         switch (this.level.number) {
-        case 1:
-            armorName = "Light Armor";
-            break;
-        case 2:
-            armorName = "Medium Armor";
-            break;
-        case 3:
-            armorName = "Heavy Armor";
-            break;
-        default:
-            armorName = "Broken Armor";
-            break;
+            case 1:
+                armorName = "Light Armor";
+                break;
+            case 2:
+                armorName = "Medium Armor";
+                break;
+            case 3:
+                armorName = "Heavy Armor";
+                break;
+            default:
+                armorName = "Broken Armor";
+                break;
         }
 
         this.armor = new Armor(armorName, this, this.level.number);
@@ -124,18 +124,18 @@ public class Unit {
     private void equipWeapon() {
         String weaponName = "";
         switch (this.level.number) {
-        case 1:
-            weaponName = "Rusty Dagger";
-            break;
-        case 2:
-            weaponName = "Longsword";
-            break;
-        case 3:
-            weaponName = "ExCaLiBuR";
-            break;
-        default:
-            weaponName = "Broken Sword";
-            break;
+            case 1:
+                weaponName = "Rusty Dagger";
+                break;
+            case 2:
+                weaponName = "Longsword";
+                break;
+            case 3:
+                weaponName = "ExCaLiBuR";
+                break;
+            default:
+                weaponName = "Broken Sword";
+                break;
         }
 
         this.weapon = new Weapon(weaponName, this, this.level.number);
