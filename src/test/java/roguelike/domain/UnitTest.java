@@ -30,7 +30,7 @@ public class UnitTest {
 
     @Test
     public void unitDoesNotMoveIfInvalidMove() {
-        Level level = new Level(this.playerZombieMap);
+        Level level = new Level(this.playerZombieMap, -1);
         level.player.move(-1, 0);
 
         assertEquals(level.player.y, 1);
@@ -40,7 +40,7 @@ public class UnitTest {
 
     @Test
     public void unitMovesIfValidMove() {
-        Level level = new Level(this.playerZombieMap);
+        Level level = new Level(this.playerZombieMap, -1);
         level.player.move(0, -1);
 
         assertEquals(level.player.y, 1);
@@ -51,7 +51,7 @@ public class UnitTest {
 
     @Test
     public void unitAttacksOtherUnit() {
-        Level level = new Level(this.playerZombieMap);
+        Level level = new Level(this.playerZombieMap, -1);
 
         assertEquals(level.zombies.size(), 1);
         Zombie z = level.zombies.get(0);
@@ -66,7 +66,7 @@ public class UnitTest {
 
     @Test
     public void usingBombWorks() {
-        Level level = new Level(this.playerZombieMap);
+        Level level = new Level(this.playerZombieMap, -1);
         Player p = level.player;
         
         assertEquals(p.bombs.size(), 0);
@@ -81,20 +81,20 @@ public class UnitTest {
 
     @Test
     public void takingHitWorks() {
-        Level level = new Level(this.playerZombieMap);
+        Level level = new Level(this.playerZombieMap, -1);
         Player p = level.player;
 
         int playerHealth = p.health;
-        p.takeHit(1, "");
+        p.takeHit(1);
         assertEquals(p.health, playerHealth - 1);
-        p.takeHit(playerHealth, "");
+        p.takeHit(playerHealth);
         assertEquals(p.health, -1);
         assertEquals(level.player, null);
     }
 
     @Test
     public void pickingUpItemWorks() {
-        Level level = new Level(this.bombMap);
+        Level level = new Level(this.bombMap, -1);
 
         assertEquals(level.player.bombs.size(), 0);
         level.player.move(1, 0);

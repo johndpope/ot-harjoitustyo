@@ -61,7 +61,7 @@ public class LevelTest {
 
     @Test
     public void setsPlayerCoordinatesIfPlayerIsPresent() {
-        Level level = new Level(this.playerMap);
+        Level level = new Level(this.playerMap, -1);
         assertNotEquals(level.player, null);
         assertEquals(level.player.x, 1);
         assertEquals(level.player.y, 2);
@@ -69,13 +69,13 @@ public class LevelTest {
 
     @Test
     public void playerIsNotCreatedIfPlayerIsMissing() {
-        Level level = new Level(this.emptyMap);
+        Level level = new Level(this.emptyMap, -1);
         assertEquals(level.player, null);
     }
 
     @Test
     public void createsZombiesIfPresent() {
-        Level level = new Level(this.zombieMap);
+        Level level = new Level(this.zombieMap, -1);
         assertEquals(level.zombies.size(), 2);
         assertEquals(level.zombies.get(0).y, 1);
         assertEquals(level.zombies.get(0).x, 2);
@@ -85,25 +85,25 @@ public class LevelTest {
 
     @Test
     public void zombiesAreNotCreatedIfNotPresent() {
-        Level level = new Level(this.emptyMap);
+        Level level = new Level(this.emptyMap, -1);
         assertEquals(level.zombies.size(), 0);
     }
 
     @Test
     public void levelHeightIsCorrect() {
-        Level level = new Level(this.emptyMap);
+        Level level = new Level(this.emptyMap, -1);
         assertEquals(level.getHeight(), 5);
     }
 
     @Test
     public void levelWidthIsCorrect() {
-        Level level = new Level(this.emptyMap);
+        Level level = new Level(this.emptyMap, -1);
         assertEquals(level.getWidth(), 4);
     }
 
     @Test
     public void zombieIsRemovedIfPresent() {
-        Level level = new Level(this.zombieMap);
+        Level level = new Level(this.zombieMap, -1);
         level.removeUnit(level.zombies.get(1));
         assertEquals(level.zombies.size(), 1);
         assertEquals(level.getTile(3, 1), '.');
@@ -111,7 +111,7 @@ public class LevelTest {
 
     @Test
     public void playerIsRemovedIfPresent() {
-        Level level = new Level(this.playerMap);
+        Level level = new Level(this.playerMap, -1);
         level.removeUnit(level.player);
         assertEquals(level.player, null);
         assertEquals(level.getTile(2, 1), '.');
@@ -119,7 +119,7 @@ public class LevelTest {
 
     @Test
     public void resetLevelResetsLevelToInitialState() {
-        Level level = new Level(this.playerMap);
+        Level level = new Level(this.playerMap, -1);
         level.setTile(0, 0, '.');
         level.setTile(1, 2, '.');
         level.setTile(3, 2, '@');
@@ -133,7 +133,7 @@ public class LevelTest {
 
     @Test
     public void pathFindingWorksWithValidPath() {
-        Level level = new Level(this.mazeMap);
+        Level level = new Level(this.mazeMap, -1);
         ArrayList<Integer> path = level.findPathBetweenCoordinates(1, 1, 1, 3);
 
         assertEquals(path.size(), 6);
@@ -147,7 +147,7 @@ public class LevelTest {
 
     @Test
     public void pathNotFoundWithInvalidPath() {
-        Level level = new Level(this.impossibleMazeMap);
+        Level level = new Level(this.impossibleMazeMap, -1);
         ArrayList<Integer> path = level.findPathBetweenCoordinates(1, 1, 1, 3);
 
         assertEquals(path.size(), 0);
@@ -155,7 +155,7 @@ public class LevelTest {
 
     @Test
     public void bombDoesNothingIfNoDetonator() {
-        Level level = new Level(this.impossibleMazeMap);
+        Level level = new Level(this.impossibleMazeMap, -1);
         level.detonateBomb(1, 1, new Bomb(null), null);
 
         assertEquals(level.getTile(0, 0), '#');
@@ -163,7 +163,7 @@ public class LevelTest {
 
     @Test
     public void bombDestroysWalls() {
-        Level level = new Level(this.playerMap);
+        Level level = new Level(this.playerMap, -1);
         level.detonateBomb(2, 1, new Bomb(level.player), level.player);
 
         assertEquals(level.getTile(1, 2), '.');
@@ -172,7 +172,7 @@ public class LevelTest {
 
     @Test
     public void bombDealsNoDamageToDetonator() {
-        Level level = new Level(this.playerMap);
+        Level level = new Level(this.playerMap, -1);
 
         int health = level.player.health;
         level.detonateBomb(2, 1, new Bomb(level.player), level.player);
@@ -182,7 +182,7 @@ public class LevelTest {
 
     @Test
     public void bombDealsDamageToOtherUnits() {
-        Level level = new Level(this.zombiePlayerMap);
+        Level level = new Level(this.zombiePlayerMap, -1);
 
         assertEquals(level.zombies.size(), 1);
 
@@ -200,7 +200,7 @@ public class LevelTest {
 
     @Test
     public void swappingTilesWorks() {
-        Level level = new Level(this.playerMap);
+        Level level = new Level(this.playerMap, -1);
         level.swapTiles(2, 1, 2, 2);
         
         assertEquals(level.getTile(2, 1), '.');
@@ -209,7 +209,7 @@ public class LevelTest {
 
     @Test
     public void noUnitIsFoundOnTileIfNotExist() {
-        Level level = new Level(this.emptyMap);
+        Level level = new Level(this.emptyMap, -1);
         Unit u = level.getUnitAtTile(1, 1);
 
         assertEquals(u, null);
@@ -217,7 +217,7 @@ public class LevelTest {
 
     @Test
     public void unitIsFoundOnTileIfExist() {
-        Level level = new Level(this.zombiePlayerMap);
+        Level level = new Level(this.zombiePlayerMap, -1);
         Unit p = level.getUnitAtTile(2, 2);
         Unit z = level.getUnitAtTile(1, 3);
 
@@ -227,7 +227,7 @@ public class LevelTest {
 
     @Test
     public void unitMoveValidationWorks() {
-        Level level = new Level(this.zombiePlayerMap);
+        Level level = new Level(this.zombiePlayerMap, -1);
         
         assertFalse(level.isValidUnitMove(0, 0));
         assertFalse(level.isValidUnitMove(-1, -1));
@@ -240,7 +240,7 @@ public class LevelTest {
 
     @Test
     public void gettingRowWorks() {
-        Level level = new Level(this.playerMap);
+        Level level = new Level(this.playerMap, -1);
         char[] rowInvalid1 = level.getRow(-1);
         char[] rowInvalid2 = level.getRow(level.getHeight());
         char[] middleRow = level.getRow(2);
@@ -256,7 +256,7 @@ public class LevelTest {
 
     @Test
     public void exitNotFoundIfNotExist() {
-        Level level = new Level(this.playerMap);
+        Level level = new Level(this.playerMap, -1);
         assertFalse(level.isExitAtTile(1, 1));
         assertFalse(level.isExitAtTile(0, 0));
         assertFalse(level.isExitAtTile(-1, -1));
@@ -265,7 +265,7 @@ public class LevelTest {
 
     @Test
     public void exitFoundIfExist() {
-        Level level = new Level(this.playerMap);
+        Level level = new Level(this.playerMap, -1);
         assertTrue(level.isExitAtTile(3, 2));
     }
 }
