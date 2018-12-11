@@ -222,7 +222,7 @@ public class LevelTest {
         Unit z = level.getUnitAtTile(1, 3);
 
         assertEquals(p.name, "Player");
-        assertEquals(z.name, "Zombie 1");
+        assertEquals(z.name, "xRay Zombie 1");
     }
 
     @Test
