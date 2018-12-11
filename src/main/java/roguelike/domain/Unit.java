@@ -10,7 +10,8 @@ public class Unit {
     public int y, x;
     public int health;
     public int damage;
-    public int armor;
+    public Armor armor;
+    public Weapon weapon;
     public String name;
     public Level level;
     public ArrayList<Bomb> bombs;
@@ -29,7 +30,8 @@ public class Unit {
         // Default values
         this.health = 0;
         this.damage = 0;
-        this.armor = 0;
+        this.armor = null;
+        this.weapon = null;
     }
 
     /**
@@ -73,9 +75,79 @@ public class Unit {
             this.addBomb();
             level.setTile(y, x, '.');
             Logger.log(this.name + " picked up a bomb.");
-            
-            this.onStatsChange();
+        } else if (tile == 'A') {
+            this.createArmor();
+            this.level.setTile(y, x, '.');
+        } else if (tile == 'W') {
+            this.equipWeapon();
+            this.level.setTile(y, x, '.');
         }
+
+        this.onStatsChange();
+    }
+
+    /**
+     * Creates an armor item for this unit
+     */
+    private void createArmor() {
+        String armorName = "";
+        switch (this.level.number) {
+        case 1:
+            armorName = "Light Armor";
+            break;
+        case 2:
+            armorName = "Medium Armor";
+            break;
+        case 3:
+            armorName = "Heavy Armor";
+            break;
+        default:
+            armorName = "Broken Armor";
+            break;
+        }
+
+        this.armor = new Armor(armorName, this, this.level.number);
+        Logger.log(this.name + " picked up a piece of " + armorName + ".");
+    }
+
+    /**
+     * Sets this unit's armor item
+     * @param a The armor item
+     */
+    public void setArmor(Armor a) {
+        this.armor = a;
+    }
+
+    /**
+     * Equips a weapon for this unit
+     */
+    private void equipWeapon() {
+        String weaponName = "";
+        switch (this.level.number) {
+        case 1:
+            weaponName = "Rusty Dagger";
+            break;
+        case 2:
+            weaponName = "Longsword";
+            break;
+        case 3:
+            weaponName = "ExCaLiBuR";
+            break;
+        default:
+            weaponName = "Broken Sword";
+            break;
+        }
+
+        this.weapon = new Weapon(weaponName, this, this.level.number);
+        Logger.log(this.name + " picked up a " + weaponName + ".");
+    }
+
+    /**
+     * Sets this unit's weapon
+     * @param w The weapon item
+     */
+    public void setWeapon(Weapon w) {
+        this.weapon = w;
     }
 
     /**
@@ -109,7 +181,20 @@ public class Unit {
      */
     public boolean attack(Unit u) {
         if (Util.totalDistanceBetweenCoordinates(u.y, u.x, this.y, this.x) == 1) {
-            u.takeHit(this.damage, this.name + " hit " + u.name + " for " + this.damage + " damage!");
+            boolean crit = false;
+            int weaponDamage = 0;
+            if (this.weapon != null) {
+                weaponDamage = this.weapon.damage;
+                if (this.weapon.criticalHit()) {
+                    weaponDamage *= 2;
+                    crit = true;
+                }
+            }
+
+            u.takeHit(this.damage + weaponDamage);
+            if (crit) {
+                Logger.log(this.name + " hit a CRITICAL attack!");
+            }
 
             return true;
         } else {
@@ -121,9 +206,16 @@ public class Unit {
      * Reduces this unit's health by an amount and kills it if health goes to 0 or less
      * @param damage The amount of damage taken
      */
-    public void takeHit(int damage, String logStr) {
+    public void takeHit(int damage) {
+        // Factor in armor
+        int damageReduction = 0;
+        if (this.armor != null) {
+            damageReduction = this.armor.calculateDamageReduction();
+        }
+
+        damage -= Math.min(damageReduction, damage);
         this.health -= damage;
-        Logger.log(logStr);
+        Logger.log(this.name + " was hit for " + damage + " damage!");
 
         // Deth
         if (this.health <= 0) {
