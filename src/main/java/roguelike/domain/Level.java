@@ -20,13 +20,13 @@ public class Level {
     /**
      * Creates a new level object
      * @param levelData Character data of the level
-     * @param startY Starting Y location of the player in the level
-     * @param startX Starting X location of the player in the level
+     * @param number The number of this level
      */
-    public Level(char[][] levelData) {
+    public Level(char[][] levelData, int number) {
         this.levelData = levelData;
         this.zombies = new ArrayList<>();
         this.onLevelExitFunc = null;
+        this.number = number;
 
         // Copy level to a backup object for level resetting
         this.initialLevelData = new char[levelData.length][levelData[0].length];
@@ -61,7 +61,7 @@ public class Level {
                 if (tile == '@' && this.player == null) {
                     this.player = new Player(y, x, "Player", this);
                 } else if (tile == 'Z') {
-                    this.zombies.add(new Zombie(y, x, "Zombie " + Integer.toString(this.zombies.size() + 1), this));
+                    this.zombies.add(new Zombie(y, x, "xRay Zombie " + Integer.toString(this.zombies.size() + 1), this));
                 }
             }
         }
@@ -71,8 +71,8 @@ public class Level {
      * Moves all enemies in the level
      */
     public void moveEnemies() {
-        for (Zombie z : this.zombies) {
-            z.calculateMove();
+        for (int i = this.zombies.size() - 1; i >= 0; i--) {
+            this.zombies.get(i).calculateMove();
         }
     }
 
@@ -120,7 +120,7 @@ public class Level {
             }
         } else if (tile == 'Z' || tile == '@') {
             Unit u = findUnitAtLocation(y, x);
-            u.takeHit(b.blastDamage, u.name + " was hit by a bomb for " + b.blastDamage + " damage!");
+            u.takeHit(b.blastDamage);
         }
     }
 
