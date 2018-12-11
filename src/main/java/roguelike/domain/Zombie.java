@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import roguelike.util.Util;
 
+/**
+ * A zombie unit which looks for the player and attacks it
+ */
 public class Zombie extends Unit {
     private int movesBeforePathUpdate = 0;
     private int currentPathIndex = 0;

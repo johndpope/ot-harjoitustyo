@@ -2,6 +2,9 @@ package roguelike.util;
 
 import java.util.ArrayList;
 
+/**
+ * Logs messages to a log buffer with a specified size
+ */
 public final class Logger {
     public static ArrayList<String> messages = new ArrayList<>();
     public static int nrLines = 0;

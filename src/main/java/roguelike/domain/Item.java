@@ -1,5 +1,8 @@
 package roguelike.domain;
 
+/**
+ * A base class for all items in the game
+ */
 public class Item {
     public String name;
     public Unit holder;

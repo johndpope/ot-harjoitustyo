@@ -1,5 +1,8 @@
 package roguelike.domain;
 
+/**
+ * A bomb item
+ */
 public class Bomb extends Item {
     public int blastRadius;
     public int blastDamage;

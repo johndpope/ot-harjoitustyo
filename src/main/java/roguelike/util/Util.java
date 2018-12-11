@@ -1,5 +1,8 @@
 package roguelike.util;
 
+/**
+ * Offers static utility functions
+ */
 public final class Util {
     /**
      * Encodes a coordinate into a single integer value

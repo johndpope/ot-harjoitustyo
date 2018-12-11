@@ -6,6 +6,9 @@ import roguelike.util.Logger;
 
 import roguelike.dao.FileLevelDao;
 
+/**
+ * Manages all levels in the game
+ */
 public class LevelManager {
     private Level currentLevel;
     private int currentLevelNumber;
@@ -77,6 +80,7 @@ public class LevelManager {
      * Moves the player in the game world
      * @param yDiff The amount the player should be moved in the y position
      * @param xDiff The amount the player should be moved in the x position
+     * @return True if moving the player was succesful, false otherwise
      */
     public boolean movePlayer(int yDiff, int xDiff) {
         if (this.currentLevel == null || this.currentLevel.player == null) {

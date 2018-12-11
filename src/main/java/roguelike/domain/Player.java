@@ -1,5 +1,8 @@
 package roguelike.domain;
 
+/**
+ * A unit class for the player of the game
+ */
 public class Player extends Unit {
     public Player(int y, int x, String name, Level level) {
         super(y, x, name, level);

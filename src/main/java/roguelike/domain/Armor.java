@@ -2,6 +2,9 @@ package roguelike.domain;
 
 import java.util.Random;
 
+/**
+ * An armor item
+ */
 public class Armor extends Item {
     private Random randomEngine;
     private int damageReductionChancePerc;

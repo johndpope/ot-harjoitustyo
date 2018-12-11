@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import roguelike.util.Util;
 import roguelike.util.Logger;
 
+/**
+ * Base unit class for all units in the game
+ */
 public class Unit {
     public int startY, startX;
     public int y, x;

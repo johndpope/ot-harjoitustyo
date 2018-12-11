@@ -9,6 +9,9 @@ import org.apache.commons.io.FileUtils;
 
 import roguelike.domain.Level;
 
+/**
+ * Handles loading of a level file into a level
+ */
 public class FileLevelDao implements LevelDao {
     private String appRootDir;
 

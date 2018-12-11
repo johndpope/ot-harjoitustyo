@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Comparator;
 
+/**
+ * Stores information about a level and has lots of functionality for modifying both 
+ * the level's data and its units as well as offering path finding within the level
+ */
 public class Level {
     public int number;
     private char[][] levelData;

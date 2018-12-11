@@ -24,6 +24,9 @@ import roguelike.domain.Armor;
 import roguelike.domain.Weapon;
 import roguelike.util.Logger;
 
+/**
+ * Manages all UI-related components of the application
+ */
 public class UIManager {
     private Stage window;
     private LevelManager levelManager;

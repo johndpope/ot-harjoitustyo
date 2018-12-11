@@ -2,6 +2,9 @@ package roguelike.domain;
 
 import java.util.Random;
 
+/**
+ * A weapon item
+ */
 public class Weapon extends Item {
     private Random randomEngine;
     private int critChance;
