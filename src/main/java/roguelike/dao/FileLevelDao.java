@@ -64,6 +64,6 @@ public class FileLevelDao implements LevelDao {
             levelData[i] = initialLevelData.get(i);
         }
 
-        return new Level(levelData);
+        return new Level(levelData, level);
     }
 }
