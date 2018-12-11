@@ -45,6 +45,10 @@ public class Zombie extends Unit {
      * @return True if the zombie attacked the player, false otherwise
      */
     private boolean calculateAttack() {
+        if (this.level.player == null) {
+            return true;
+        }
+
         int distToPlayer = Util.totalDistanceBetweenCoordinates(this.level.player.y, this.level.player.x, this.y, this.x);
         if (this.bombs.size() > 0 && distToPlayer <= this.bombs.get(0).blastRadius) {
             this.useBomb();
