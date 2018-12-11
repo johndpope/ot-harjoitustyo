@@ -20,6 +20,8 @@ import javafx.animation.KeyFrame;
 
 import roguelike.domain.Level;
 import roguelike.domain.LevelManager;
+import roguelike.domain.Armor;
+import roguelike.domain.Weapon;
 import roguelike.util.Logger;
 
 public class UIManager {
@@ -30,9 +32,9 @@ public class UIManager {
 
     // Size of characters on screen
     final int charHeight = 17;
-    final int charWidth = 11;
+    final int charWidth = 12;
     final int nrLogLines = 5;
-    final int nrStatsLines = 2;
+    final int nrStatsLines = 5;
     final int delayFuncMS = 50;
     final int bottomTextSpace = charHeight * (nrLogLines + 1);
     final int topTextSpace = charHeight * (nrStatsLines + 1);
@@ -158,7 +160,7 @@ public class UIManager {
             }
 
             t.setY(i * charHeight);
-            t.setFont(Font.font("consolas", FontWeight.BOLD, FontPosture.REGULAR, 20));
+            t.setFont(Font.font("monospace", FontWeight.BOLD, FontPosture.REGULAR, 20));
             
             this.levelTextData[i] = t;
         }
@@ -180,18 +182,26 @@ public class UIManager {
         }
     }
 
+    /**
+     * Updates the player's stats text data at the top of the screen
+     */
     private void updateStatsTextData() {
         Level level = this.levelManager.getCurrentLevel();
         if (level == null || level.player == null) {
             return;
         }
 
+        Weapon w = level.player.weapon;
+        Armor a = level.player.armor;
+
         String hp = Integer.toString(level.player.health);
-        String dmg = Integer.toString(level.player.damage);
-        String armor = Integer.toString(level.player.armor);
+        String dmg = Integer.toString((w == null) ? level.player.damage : (level.player.damage + w.damage));
+        String armor = Integer.toString((a == null) ? 0 : a.armor);
         String bombs = Integer.toString(level.player.bombs.size());
 
         this.levelTextData[1].setText("Health: " + hp + " | Damage: " + dmg + " | Armor: " + armor + " | Bombs: " + bombs);
+        this.levelTextData[3].setText("Weapon: " + ((w == null) ? "none" : w.name + " (" + w.damage + " damage)"));
+        this.levelTextData[4].setText("Armor: " + ((a == null) ? "none" : a.name + " (" + a.armor + " armor)"));
     }
 
     /**
